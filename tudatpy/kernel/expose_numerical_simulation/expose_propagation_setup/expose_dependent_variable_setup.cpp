@@ -195,6 +195,8 @@ namespace dependent_variable {
                        tp::PropagationDependentVariables::gravity_field_potential_dependent_variable)
                 .value("gravity_field_laplacian_of_potential_type",
                        tp::PropagationDependentVariables::gravity_field_laplacian_of_potential_dependent_variable)
+                .value("custom_with_relative_position_as_input_type",
+                       tp::PropagationDependentVariables::custom_dependent_variable_with_input_relative_position)
                 .export_values();
 
 
@@ -582,6 +584,13 @@ namespace dependent_variable {
 
         m.def("gravity_field_laplacian_of_potential",
               &tp::gravityFieldLaplacianOfPotentialDependentVariable,
+              py::arg("body_undergoing_acceleration"),
+              py::arg("body_exerting_acceleration"));
+
+        m.def("custom_with_relative_position_as_input",
+              &tp::customDependentWithInputRelPosVariableSaveSettings,
+              py::arg("custom_function"),
+              py::arg("variable_size"),
               py::arg("body_undergoing_acceleration"),
               py::arg("body_exerting_acceleration"));
 
