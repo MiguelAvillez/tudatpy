@@ -138,7 +138,8 @@ void expose_shape_based_thrust(py::module &m)
 
     m.def("hodograph_exponential",
           &tsbm::hodographExponential,
-          py::arg("exponent") );
+          py::arg("exponent"),
+          get_docstring("hodograph_exponential").c_str() );
 
     m.def("hodograph_scaled_exponential",
           &tsbm::hodographScaledExponential,
@@ -154,7 +155,8 @@ void expose_shape_based_thrust(py::module &m)
     m.def("hodograph_exponential_sine",
           &tsbm::hodographExponentialSine,
           py::arg("exponent"),
-          py::arg("frequency") );
+          py::arg("frequency"),
+          get_docstring("hodograph_exponential_sine").c_str() );
 
     m.def("hodograph_scaled_exponential_sine",
           &tsbm::hodographScaledExponentialSine,
@@ -172,7 +174,8 @@ void expose_shape_based_thrust(py::module &m)
     m.def("hodograph_exponential_cosine",
           &tsbm::hodographExponentialCosine,
           py::arg("exponent"),
-          py::arg("frequency"));
+          py::arg("frequency"),
+          get_docstring("hodograph_exponential_cosine").c_str() );
 
     m.def("hodograph_scaled_exponential_cosine",
           &tsbm::hodographScaledExponentialCosine,
@@ -189,7 +192,8 @@ void expose_shape_based_thrust(py::module &m)
 
     m.def("hodograph_power",
           &tsbm::hodographPower,
-          py::arg("exponent") );
+          py::arg("exponent"),
+          get_docstring("hodograph_power").c_str() );
 
     m.def("hodograph_scaled_power",
           &tsbm::hodographScaledPower,
