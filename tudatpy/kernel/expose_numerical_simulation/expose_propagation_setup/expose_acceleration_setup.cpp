@@ -125,6 +125,7 @@ void expose_acceleration_setup(py::module &m) {
             .value("spherical_harmonic_gravity_type", tba::AvailableAcceleration::spherical_harmonic_gravity, get_docstring("AvailableAcceleration.spherical_harmonic_gravity_type").c_str())
             .value("mutual_spherical_harmonic_gravity_type", tba::AvailableAcceleration::mutual_spherical_harmonic_gravity, get_docstring("AvailableAcceleration.mutual_spherical_harmonic_gravity_type").c_str())
             .value("polyhedron_gravity_type", tba::AvailableAcceleration::polyhedron_gravity, get_docstring("AvailableAcceleration.polyhedron_gravity_type").c_str())
+            .value("ring_gravity_type", tba::AvailableAcceleration::ring_gravity, get_docstring("AvailableAcceleration.ring_gravity").c_str())
             .value("thrust_acceleration_type", tba::AvailableAcceleration::thrust_acceleration, get_docstring("AvailableAcceleration.thrust_acceleration_type").c_str())
             .value("relativistic_correction_acceleration_type", tba::AvailableAcceleration::relativistic_correction_acceleration, get_docstring("AvailableAcceleration.relativistic_correction_acceleration_type").c_str())
             .value("empirical_acceleration_type", tba::AvailableAcceleration::empirical_acceleration, get_docstring("AvailableAcceleration.empirical_acceleration_type").c_str())
@@ -227,8 +228,11 @@ void expose_acceleration_setup(py::module &m) {
           py::arg( "maximum_order_central_body" ) = 0,
           get_docstring("mutual_spherical_harmonic_gravity").c_str());
 
-     m.def("polyhedron_gravity", &tss::polyhedronAcceleration,
+    m.def("polyhedron_gravity", &tss::polyhedronAcceleration,
           get_docstring("polyhedron_gravity").c_str());
+
+    m.def("ring_gravity", &tss::ringAcceleration,
+          get_docstring("ring_gravity").c_str());
 
     m.def("relativistic_correction", &tss::relativisticAccelerationCorrection,
           py::arg( "use_schwarzschild" ) = false,

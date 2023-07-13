@@ -92,6 +92,7 @@ void expose_gravity_field_setup(py::module &m) {
             .value("central_spice_gravity", tss::GravityFieldType::central_spice, get_docstring("GravityFieldType.central_spice_gravity").c_str())
             .value("spherical_harmonic_gravity", tss::GravityFieldType::spherical_harmonic, get_docstring("GravityFieldType.spherical_harmonic_gravity").c_str())
             .value("polyhedron_gravity", tss::GravityFieldType::polyhedron, get_docstring("GravityFieldType.polyhedron_gravity").c_str())
+            .value("ring_gravity", tss::GravityFieldType::one_dimensional_ring, get_docstring("GravityFieldType.ring_gravity").c_str())
             .export_values();
 
 
@@ -185,6 +186,26 @@ void expose_gravity_field_setup(py::module &m) {
                            &tss::PolyhedronGravityFieldSettings::getVerticesDefiningEachFacet,
                            get_docstring("PolyhedronGravityFieldSettings.vertices_defining_each_facet").c_str());
 
+    py::class_<tss::RingGravityFieldSettings, std::shared_ptr<tss::RingGravityFieldSettings>,
+            tss::GravityFieldSettings>(m, "RingGravityFieldSettings",
+                                       get_docstring("RingGravityFieldSettings").c_str( ) )
+            .def_property ("gravitational_parameter",
+                           &tss::RingGravityFieldSettings::getGravitationalParameter,
+                           &tss::RingGravityFieldSettings::resetGravitationalParameter,
+                           get_docstring("RingGravityFieldSettings.gravitational_parameter").c_str( ) )
+            .def_property ("ring_radius",
+                           &tss::RingGravityFieldSettings::getRingRadius,
+                           &tss::RingGravityFieldSettings::resetRingRadius,
+                           get_docstring("RingGravityFieldSettings.density").c_str())
+            .def_property("associated_reference_frame",
+                          &tss::RingGravityFieldSettings::getAssociatedReferenceFrame,
+                          &tss::RingGravityFieldSettings::resetAssociatedReferenceFrame,
+                          get_docstring("RingGravityFieldSettings.associated_reference_frame").c_str( ) )
+            .def_property("elliptic_integral_S_from_D_and_B",
+                          &tss::RingGravityFieldSettings::getEllipticIntegralSFromDAndB,
+                          &tss::RingGravityFieldSettings::resetEllipticIntegralSFromDAndB,
+                          get_docstring("RingGravityFieldSettings.elliptic_integral_S_from_D_and_B").c_str( ) );
+
 
     m.def("central",
           &tss::centralGravitySettings,
@@ -257,6 +278,15 @@ void expose_gravity_field_setup(py::module &m) {
           py::arg("associated_reference_frame"),
           py::arg("gravitational_constant") = tpc::GRAVITATIONAL_CONSTANT,
           get_docstring("polyhedron_from_density").c_str()
+          );
+
+    m.def("ring",
+          tss::ringGravitySettings,
+          py::arg("gravitational_parameter"),
+          py::arg("ring_radius"),
+          py::arg("associated_reference_frame"),
+          py::arg("elliptic_integral_S_from_D_and_B") = true,
+          get_docstring("ring").c_str()
           );
 
     // Triaxial ellipsoid: overload 1
